@@ -59,10 +59,7 @@ makeLenses ''Ship
   --setter ship newNumCrew = ship { _numCrew = newNumCrew }
 
 purplePearl :: Ship
-purplePearl = Ship
-  { _name = "Purple Pearl"
-  , _numCrew = 38
-  }
+purplePearl = Ship { _name = "Purple Pearl", _numCrew = 38 }
 
 {-
   Records part two questions
@@ -87,3 +84,47 @@ makeLenses ''Pet
 
 getPetName :: Pet -> String
 getPetName = view petName
+
+{-
+  A virtual field is really just a lense.
+-}
+
+
+newtype Celsius = Celsius Float deriving Show
+newtype Fahrenheit = Fahrenheit Float deriving Show
+
+data Temperature = Temperature
+  { _location :: String
+  , _celsius :: Celsius
+  } deriving Show
+
+makeLenses ''Temperature
+
+temp :: Temperature
+temp = Temperature "Berlin" (Celsius 7.0)
+
+fahrenheit :: Lens' Temperature Fahrenheit
+fahrenheit = lens getter setter
+ where
+  getter = celsiusToFahrenheit . view celsius
+  setter temp f = set celsius (fahrenheitToCelsius f) temp
+  celsiusToFahrenheit (Celsius c) = Fahrenheit $ (c * (9 / 5)) + 32
+  fahrenheitToCelsius (Fahrenheit f) = Celsius $ (f - 32) * (5 / 9)
+
+data User = User
+  { _firstName :: String
+  , _lastName :: String
+  , _userName :: String
+  , _email :: String
+  } deriving Show
+makeLenses ''User
+
+fullName :: Lens' User String
+fullName = lens getter setter
+ where
+  getter user = user ^. firstName <> " " <> user ^. lastName
+  setter user newFullName = case words newFullName of
+    []             -> user { _firstName = "", _lastName = "" }
+    [newFirstName] -> user { _firstName = newFirstName, _lastName = "" }
+    (newFirstName : restOfName) ->
+      user { _firstName = newFirstName, _lastName = unwords restOfName }
