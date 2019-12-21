@@ -32,6 +32,7 @@ default-extensions:
 dependencies:
 - base >= 4.7 && < 5
 - lens
+- containers
 
 library:
   source-dirs: src
