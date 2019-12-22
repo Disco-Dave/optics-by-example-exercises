@@ -27,3 +27,6 @@ roster = Set.fromList
   , CrewMember "Salty Steve"      PowderMonkey ["Charcuterie"]
   , CrewMember "One-eyed Jack"    Navigator    []
   ]
+
+beastSizes :: [(Int, String)]
+beastSizes = [(3, "Sirens"), (882, "Kraken"), (92, "Ogopogo")]
