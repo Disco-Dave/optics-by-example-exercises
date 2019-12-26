@@ -30,3 +30,18 @@ roster = Set.fromList
 
 beastSizes :: [(Int, String)]
 beastSizes = [(3, "Sirens"), (882, "Kraken"), (92, "Ogopogo")]
+
+quotes = [("Why", "So", "Serious?"), ("This", "is", "SPARTA")]
+
+{- Question 1:
+    a. Should be the same as before
+    b. ["Sirens", "Kraken", "Ogopogo"]
+    c. "SirensKrakenOgopogo"
+    d. ["Sirens", "Kraken", "Ogopogo"]
+    e. [1,2,3,4,5,6]
+    g. "CaptainFirst Mate"
+    f. "HelloIt's me"
+    g. ["Why", "So", "Serious?"]
+    h. 
+-}
+
